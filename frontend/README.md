@@ -14,6 +14,9 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 
 ```sh
 npm install
+npm install vue-router
+npm install bootstrap
+npm install --save @fortawesome/fontawesome-free
 ```
 
 ### Compile and Hot-Reload for Development
