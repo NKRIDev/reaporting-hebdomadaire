@@ -9,8 +9,8 @@
 
 import router from '@adonisjs/core/services/router'
 
-router.get('/api/hello', async () => {
+router.get('/', async () => {
   return {
-    message: 'Hello depuis le BACKEND ! adonisjs',
+    hello: 'world',
   }
 })
