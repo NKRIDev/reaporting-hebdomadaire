@@ -13,4 +13,12 @@ router.get('/', async () => {
   return {
     hello: 'world',
   }
-})
+});
+
+
+router.get('/api/hello', async () => {
+  return {
+    hello: 'Bonjour depuis AdonisJS!',
+  }
+});
+
