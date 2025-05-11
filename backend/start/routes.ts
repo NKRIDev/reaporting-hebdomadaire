@@ -8,6 +8,7 @@
 */
 
 import router from '@adonisjs/core/services/router'
+import AuthController from "#controllers/Http/AuthController";
 
 router.get('/', async () => {
   return {
@@ -15,10 +16,11 @@ router.get('/', async () => {
   }
 });
 
-
 router.get('/api/hello', async () => {
   return {
     hello: 'Bonjour depuis AdonisJS!',
   }
 });
 
+const authController = new AuthController();
+router.post("/login", (ctx) => authController.login(ctx));

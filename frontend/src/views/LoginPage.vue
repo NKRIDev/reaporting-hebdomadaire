@@ -1,33 +1,47 @@
 <template>
-    <h1>Login</h1>
-    <form action="" method="POST" @click.prevent>
-        <input type="text" placeholder="Pseudo">
-        <input type="password" placeholder="Mot de passe">
-        <button type="submit">Envoyer</button>
-    </form>
-
-    <div class="text-api">
-        <p>{{ message }}</p>
-    </div>
+  <h1>Login</h1>
+  <form @submit.prevent="handleLogin">
+    <input v-model="password" type="password" placeholder="Mot de passe" />
+    <button type="submit">Envoyer</button>
+    <p v-if="error" style="color:red">{{ error }}</p>
+  </form>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
+import {useRoute} from "vue-router";
 
-const message = ref("");
+const route = useRoute();
 
-onMounted(async () =>{
-    try{
-      const data = await fetch("http://localhost:3333/api/hello");
-      const messageData = await data.json();
+const password = ref("");
+const error = ref("");
 
-      message.value = messageData;
-      console.log(messageData);
+const handleLogin = async () => {
+  try {
+    const response = await fetch('http://localhost:3333/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ password: password.value }),
+    });
+
+    const data = await response.json();
+
+    if(!response.ok) {
+      error.value = data.message;
+      console.log("ee");
     }
-    catch (error){
-      console.log(error);
+    else {
+      error.value = "";
+      alert(data.message);
+      console.log("200");
     }
-});
+  }
+  catch (error) {
+    error.value = "Erreur réseau";
+    console.log(error);
+  }
+}
 </script>
 
 <style scoped>
